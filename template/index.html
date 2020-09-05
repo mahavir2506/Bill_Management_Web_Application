@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+<body>
+	{% block body_block %}
+	{% load static %}
+	{% if error %}
+	<h1>{{error}}</h1>
+	{% endif %}
+	<form method="post" action="{%url 'index' %}">
+		{% csrf_token %}
+
+		<div class="form-group" style="margin-top: 1%; border-style: solid; border-width: 1px" >
+		&nbsp;&nbsp;
+		<label>Id:</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" name="id" style="border-width: 1.5px">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" name="submit" value="Fetch Data">
+	</div>
+	</form >
+	<div style="margin-top: 2%">
+	<form method="post" action="{%url 'print' %}" >
+		{% csrf_token %}
+		<div class="form-group" style="margin-top: 0.5% border-width:2px">
+		&nbsp;&nbsp;
+		<label>Name:</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" name="name" style="border-width: 1.5px" value="{{list.name}}" required>
+		</div>
+		<div class="form-group" style="border-width:2px">
+		&nbsp;&nbsp;
+		<label>Date:</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="date" name="date" style="border-width: 1.5px" id="date" required>
+		</div>
+		<div class="form-group" style=" border-width:2px">
+		&nbsp;&nbsp;
+		<label>Address:</label>
+		&nbsp;&nbsp;
+		<textarea name="address" style="border-width: 1.5px">{{list.address}}</textarea> -
+		</div>
+		<div class="form-group" style="border-width:2px">
+		&nbsp;&nbsp;
+		<label>Mob No:</label>
+		&nbsp;&nbsp;&nbsp;
+		<input type="number" name="mobile" style="border-width: 1.5px" value={{list.mobile}} required>
+		</div>
+		<div class="form-group" style="border-width:2px">
+		&nbsp;&nbsp;
+		</div>
+		<div class="form-group" style="border-width:2px">
+			<label>   
+					Gender :  
+			</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" checked="true"  name="gender" value="male" id="g1"/> Male   
+			<input type="radio" name="gender" value="female" id="g1"/> Female 
+			<input type="radio" name="gender" value="other" id="g1" /> Other  
+		</div>
+		<div class="form-group">
+			<table  border="1px">
+				<tr>
+					<td colspan="5" align="center"> <b>RIGHT</b> </td>
+				</tr>	
+				<tr>
+					<td></td>
+					<td><b>SPH</b></td>
+					<td><b>CYL</b></td>
+					<td><b>AXIS</b></td>
+					<td><b>V/N</b></td>
+				</tr>
+				<tr>
+					<td>DV</td>
+					<td><input type="text" name="dv/sph" size="5" style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/cyl" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/axix" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/vn" size="5"style="border-width: 1.5px"></td>
+				</tr>
+				<tr>
+					<td>NV</td>
+					<td><input type="text" name="nv/sph" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/cyl" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/axix" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/vn" size="5"style="border-width: 1.5px"></td>
+				</tr>
+				<tr>
+					<td  align="center">ADD</td>
+					<td colspan="4"><input type="text" name="add" size="20"></td>
+
+				</tr>		
+			</table>
+		</div>
+		<div class="form-group">
+			<table  border="1px">
+				<tr>
+					<td colspan="5" align="center"> <b>LEFT</b> </td>
+				</tr>	
+				<tr>
+					<td></td>
+					<td><b>SPH</b></td>
+					<td><b>CYL</b></td>
+					<td><b>AXIS</b></td>
+					<td><b>V/N</b></td>
+				</tr>
+				<tr>
+					<td>DV</td>
+					<td><input type="text" name="dv/sph1" size="5" style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/cyl1" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/axix1" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="dv/vn1" size="5"style="border-width: 1.5px"></td>
+				</tr>
+				<tr>
+					<td>NV</td>
+					<td><input type="text" name="nv/sph1" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/cyl1" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/axix1" size="5"style="border-width: 1.5px"></td>
+					<td><input type="text" name="nv/vn1" size="5"style="border-width: 1.5px"></td>
+				</tr>
+				<tr>
+					<td  align="center">ADD</td>
+					<td colspan="4"><input type="text" name="add1" size="20"></td>
+
+				</tr>		
+			</table>
+		</div>
+		<label>Dr.</label>
+		<input type="text" name="dr">
+		<br>
+		<label>Lense type.</label>
+		<input type="text" name="ltype" required>
+		<br>
+		<label> No of item </label>
+
+		<input type="number" name="itemno" id="no" onchange="createitemform()" value="0">
+		<div class="form-group" id="f1">
+		</div>
+			<center>
+		<input type="submit" name="submit" value="submit" >
+	</center>
+	</form>
+	</div>
+	<h5 align="center"> Powered By </h5>
+	<h5 align="center"></h5>
+    <b><h4 title="Samarkan font" itemprop="name" id="color_tx" style=" font-family: Samarkan; text-align: center; color: #330000;" ><img src="{% static 'imgs/logo.jpeg' %}" style="border-radius: 50%;" height="20" width="20">Chitta: <h6 align="center"> S Y S T E M  S </h6></h4></b>
+	
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+	var hi=0;
+	$( document ).ready(function() {
+		document.getElementById("date").valueAsDate = new Date();
+		createitemform();
+	});
+	 function createitemform() {
+	 	if(hi==0)
+	 	{
+	 	var no=document.getElementById("no").value;
+	 	for (i = 0; i <no ; i++) {
+	 		document.getElementById("f1").innerHTML += "<div style='margin-top: 1%; border-style: solid; border-width: 1px'><h1> Item "+(i+1)+"</h1><label> Item name </label> &nbsp; &nbsp; <input type='text' name='item[]' style='border-width:1.5px '> <br> <label> Unit </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type='number' name='unit[]' value='0' style='border-width:1.5px '> <br><label> Qty </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type='number' name='qty[]' value='0' style='border-width:1.5px '> <br><label> Rate </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type='number' name='rate[]' style='border-width:1.5px ' value='0'><br><label> Disc </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type='number' name='disc[]' value='0' style='border-width:1.5px '> <br> <label> Tax </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; <input type='number' name='tax[]' value='0' style='border-width:1.5px '> <br></div>";
+	 		hi=1;
+		}
+		}
+		else
+		{
+			document.getElementById("f1").innerHTML="";
+			hi=0;
+			createitemform();
+		} 	
+	}
+</script>
+</body> 
+{% endblock %}-

@@ -1,0 +1,76 @@
+<Html>  
+<head>
+	{% extends 'base.html' %}
+	{% load static %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+	{% block body_block %}
+<title>  
+Registration Page  
+</title>  
+</head>  
+<body>
+{% if error %}
+<h1>{{error}}</h1>
+{% endif %}  
+<table class="table">
+<form method="post" action="{% url 'report' %}">
+{% csrf_token %}
+<tr>
+	<td>
+		Start Date
+	</td>
+	<td>
+		<input type="date" name="sdate" id="sdate">
+	</td>
+</tr>
+<tr>
+	<td>
+		<label>Enddate</label>
+	</td>
+	<td>
+		<input type="date" name="edate" id="edate">
+	</td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="submit" value="search">
+	</td>
+	<td>
+	</td>
+	<td>
+	</td>
+</tr>
+</form>
+</table>
+<table class="table">
+	<tr>
+		<th> id</th>
+		<th> name </th>
+		<th> total </th>
+		<th> url </th>
+		<th> Delete </th>
+	</tr>
+	{% for i in list %}
+	<tr>
+		<td> {{i.id}} </td>
+		<td> {{i.name}} </td>
+		<td> {{i.total}}</td>
+		<td> <a href="{% url 'showbill' pk=i.url %}">Prieview</a> </td>
+		<td> <a href="{% url 'deletebill' pk=i.url %}">Delete</a> </td>
+	</tr>
+	{% endfor %}
+	<tr><td colspan="5" align="right"><h3>total ammount :{{total}}</h3></td></tr>
+	<tr><td colspan="5" align="center"><a href="{% url 'report_pdf' %}" class="btn btn-primary"> Print </a> </td></tr>
+</table>
+<h5 align="center"> Powered By </h5>
+	<h5 align="center"></h5>
+    <b><h4 title="Samarkan font" itemprop="name" id="color_tx" style=" font-family: Samarkan; text-align: center; color: #330000;" ><img src="{% static 'imgs/logo.jpeg' %}" style="border-radius: 50%;" height="20" width="20">Chitta: <h6 align="center"> S Y S T E M  S </h6></h4></b>
+	
+</body>
+<script>
+$( document ).ready(function() {
+		document.getElementById("sdate").valueAsDate = new Date("Augest 22, 2020 05:35:32");
+		document.getElementById("edate").valueAsDate = new Date();
+	});
+</script>
+{% endblock %}
